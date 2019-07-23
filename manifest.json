@@ -12,7 +12,7 @@
   "options_page": "options.html",
   "background": {
     "scripts": [ "background.js" ],
-    "persistent": false
+    "persistent": true
   },
   "browser_action": {
     "default_popup": "popup.html",
@@ -29,11 +29,5 @@
     "48": "images/get_started48.png",
     "128": "images/get_started128.png"
   },
-  "content_scripts": [
-    {
-      "matches": [ "*://www.nytimes.com/*" ],
-      "js": [ "contentScript.js" ]
-    }
-  ],
   "manifest_version": 2
 }
