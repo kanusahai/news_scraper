@@ -23,18 +23,27 @@ scrape.onclick = () => {
 
     var jsonPayload = {};
     getURLandTitle();
-    jsonPayload["URL"] = window.localStorage.getItem("uri");
-    jsonPayload["Header"] = window.localStorage.getItem("head");
-    jsonPayload["Content"] = plainText;
+    jsonPayload["url"] = window.localStorage.getItem("uri");
+    jsonPayload["header"] = window.localStorage.getItem("head");
+    jsonPayload["body"] = plainText;
 
     // Create an HTTP Request
     //TODO: Add URL
-    var request = new XMLHttpRequest();
-    request.open("POST", "", true);
-    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    request.send(JSON.stringify(jsonPayload));
+    load("http://trustednews.westus.cloudapp.azure.com/api/get_website_score", JSON.stringify(jsonPayload), verify);
 
     verify(jsonPayload);
+};
+
+function load(url, body, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            callback(xhr.response);
+        }
+    }
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.send(body);
 };
 
 function extractContent(s, space) {
