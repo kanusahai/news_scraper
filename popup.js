@@ -6,6 +6,8 @@
 
 let scrape = document.getElementById('scrape');
 
+var html;
+
 /*chrome.storage.sync.get('color', function(data) {
   changeColor.style.backgroundColor = data.color;
   changeColor.setAttribute('value', data.color);
@@ -16,7 +18,9 @@ scrape.onclick = () => {
     // Get HTML from web-page
 
     // Extract plain text
-    var plainText = extractContent("<p>Hello</p><a href='http://w3c.org'>W3C</a>.  Nice to <em>see</em><strong><em>you!</em></strong>", true);
+    //var plainText = extractContent("<p>Hello</p><a href='http://w3c.org'>W3C</a>.  Nice to <em>see</em><strong><em>you!</em></strong>", true);
+
+    var plainText = extractContent(html, true);
 
     // Create JSON Payload
     //TODO: Extract URL and Header from webpage
@@ -28,10 +32,16 @@ scrape.onclick = () => {
     jsonPayload["body"] = plainText;
 
     // Create an HTTP Request
-    //TODO: Add URL
     load("http://trustednews.westus.cloudapp.azure.com/api/get_website_score", JSON.stringify(jsonPayload), verify);
 
     verify(jsonPayload);
+    //verify(html);
+
+};
+
+function test() {
+    html = document.documentElement.innerHTML;
+    alert(html);
 };
 
 function load(url, body, callback) {
@@ -67,6 +77,8 @@ function getURLandTitle() {
         function (tabs) {
             window.localStorage.setItem("uri", tabs[0].url);
             window.localStorage.setItem("head", tabs[0].title);
+            //const scriptToExec = `(${scrapeThePage})()`;
+            chrome.tabs.executeScript(tabs[0].id, { code: '${test()}' });
         }
     );
 };
