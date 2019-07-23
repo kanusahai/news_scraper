@@ -13,62 +13,56 @@ let scrape = document.getElementById('scrape');
 
 scrape.onclick = () => {
 
-  // Get HTML from web-page
+    // Get HTML from web-page
 
-  // Extract plain text
-  var plainText = extractContent("<p>Hello</p><a href='http://w3c.org'>W3C</a>.  Nice to <em>see</em><strong><em>you!</em></strong>", true);
+    // Extract plain text
+    var plainText = extractContent("<p>Hello</p><a href='http://w3c.org'>W3C</a>.  Nice to <em>see</em><strong><em>you!</em></strong>", true);
 
-  // Create JSON Payload
-  //TODO: Extract URL and Header from webpage
-  
-  var jsonPayload = {};
-  jsonPayload["URL"]=getURL();
-  jsonPayload["Header"]=getTitle();
-  jsonPayload["Content"]=plainText;
+    // Create JSON Payload
+    //TODO: Extract URL and Header from webpage
 
-  // Create an HTTP Request
-  //TODO: Add URL
-  var request = new XMLHttpRequest();
-  request.open("POST", "", true);
-  request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-  request.send(JSON.stringify(jsonPayload));
+    var jsonPayload = {};
+    getURLandTitle();
+    jsonPayload["URL"] = window.localStorage.getItem("uri");
+    jsonPayload["Header"] = window.localStorage.getItem("head");
+    jsonPayload["Content"] = plainText;
 
-  verify(JSON.stringify(jsonPayload));
+    // Create an HTTP Request
+    //TODO: Add URL
+    var request = new XMLHttpRequest();
+    request.open("POST", "", true);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.send(JSON.stringify(jsonPayload));
+
+    verify(jsonPayload);
 };
 
 function extractContent(s, space) {
-  var span= document.createElement('span');
-  span.innerHTML= s;
-  if(space) {
-    var children= span.querySelectorAll('*');
-    for(var i = 0 ; i < children.length ; i++) {
-      if(children[i].textContent)
-        children[i].textContent+= ' ';
-      else
-        children[i].innerText+= ' ';
+    var span = document.createElement('span');
+    span.innerHTML = s;
+    if (space) {
+        var children = span.querySelectorAll('*');
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].textContent)
+                children[i].textContent += ' ';
+            else
+                children[i].innerText += ' ';
+        }
     }
-  }
-  return [span.textContent || span.innerText].toString().replace(/ +/g,' ');
+    return [span.textContent || span.innerText].toString().replace(/ +/g, ' ');
 };
 
 //TODO: Merge getURL and getTitle
-function getURL() {
-  chrome.tabs.query({'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT},
-   function(tabs){
-      return tabs[0].url;
-   }
-  );
+function getURLandTitle() {
+    chrome.tabs.query({ 'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT },
+        function (tabs) {
+            window.localStorage.setItem("uri", tabs[0].url);
+            window.localStorage.setItem("head", tabs[0].title);
+        }
+    );
 };
 
-function getTitle() {
-  chrome.tabs.query({'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT},
-   function(tabs){
-      return tabs[0].title;
-   }
-  );
-};
 
-function verify(jsonPayloadString)
-{
-  chrome.extension.getBackgroundPage().console.log(jsonPayloadString);
+function verify(jsonPayloadString) {
+    chrome.extension.getBackgroundPage().console.log(jsonPayloadString);
 };
