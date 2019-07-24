@@ -64,7 +64,8 @@ function handleResponse(tabID, response) {
     var evaluation = jsonResponse.evaluation;
     var score = evaluation.reliability;
     var label = evaluation.label;
-    //TODO: Pass the score and label to different htmls as required.
+    var relevant_articles = jsonResponse.relevant_articles;
+    //TODO: Pass the score, label and articles to different htmls as required.
     if (score > 75) {
         chrome.browserAction.setPopup({ tabId: tabID, popup: "popups/popup1.html" });
     } else if (score > 30) {
