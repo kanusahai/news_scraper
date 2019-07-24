@@ -60,8 +60,19 @@ function sendRequestToMLModel(tabID, url, body, callback) {
 function handleResponse(tabID, response) {
     console.log(response);
 
-    //TODO: Parse response here and display the popup accordingly
-    chrome.browserAction.setPopup({tabId : tabID, popup : "popups/popup1.html"});
+    var jsonResponse = JSON.parse(response);
+    var evaluation = jsonResponse.evaluation;
+    var score = evaluation.reliability;
+    var label = evaluation.label;
+    var relevant_articles = jsonResponse.relevant_articles;
+    //TODO: Pass the score, label and articles to different htmls as required.
+    if (score > 75) {
+        chrome.browserAction.setPopup({ tabId: tabID, popup: "popups/popup1.html" });
+    } else if (score > 30) {
+        chrome.browserAction.setPopup({ tabId: tabID, popup: "popups/popup2.html" });
+    } else {
+        chrome.browserAction.setPopup({ tabId: tabID, popup: "popups/popup3.html" });
+    }
 };
 
 function stripHTML(str, space) {
