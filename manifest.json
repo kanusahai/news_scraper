@@ -4,18 +4,17 @@
   "description": "Scrape News!",
   "permissions": [
     "activeTab",
-    "declarativeContent",
-    "storage",
-    "*://www.nytimes.com/*",
-    "tabs"
+    "webNavigation",
+    "tabs",
+    "*://*/*"
   ],
-  "options_page": "options.html",
+  "options_page": "options/options.html",
   "background": {
     "scripts": [ "background.js" ],
     "persistent": true
   },
   "browser_action": {
-    "default_popup": "popup.html",
+    "default_popup": "popups/defaultPopup.html",
     "default_icon": {
       "16": "images/get_started16.png",
       "32": "images/get_started32.png",
