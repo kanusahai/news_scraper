@@ -62,7 +62,8 @@ function handleResponse(tabID, response) {
 
     var jsonResponse = JSON.parse(response);
     var evaluation = jsonResponse.evaluation;
-    var score = evaluation.reliability;
+    var reliability = evaluation.reliability;
+    var score = parseFloat(reliability);
     var label = evaluation.label;
     var relevant_articles = jsonResponse.relevant_articles;
     //TODO: Pass the score, label and articles to different htmls as required.
