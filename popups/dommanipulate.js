@@ -46,7 +46,7 @@ function handleResponse(tabID, response) {
     var jsonResponse = JSON.parse(response);
     var evaluation = jsonResponse.evaluation;
     var reliability = evaluation.reliability;
-    var score = parseFloat(reliability)*100;
+    var score = parseInt(parseFloat(reliability)*100);
     var label = evaluation.label;
     var characterstics = evaluation.characteristics;
     var relevant_articles = jsonResponse.relevant_articles;
@@ -86,6 +86,8 @@ function handleResponse(tabID, response) {
         if (relevant_articles[i] != undefined)
         {
             changeTextOfElement(elemId, relevant_articles[i].title);
+            changeUrlofElement(elemId, relevant_articles[i].url);
+
         } else {
             toggleDisplayOfElement(elemId, false);
         }
@@ -97,6 +99,11 @@ function handleResponse(tabID, response) {
         changeTextOfElement(key, key + ": " + characterstics[key] + "%");
       })
 };
+
+function changeUrlofElement(elemId, url) {
+    var domElement = document.getElementById(elemId);
+    domElement.href = url;
+}
 
 function changeTextOfElement(elemId, text) {
     var domElement = document.getElementById(elemId);
