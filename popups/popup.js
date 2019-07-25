@@ -6,7 +6,7 @@ var data = [{
 //sort bars based on value
 data = data.sort(function (a, b) {
 return d3.ascending(a.value, b.value);
-})
+});
 
 //set up svg using margin conventions - we'll need plenty of room on the left for labels
 var margin = {
