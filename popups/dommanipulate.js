@@ -50,23 +50,30 @@ function handleResponse(tabID, response) {
     var label = evaluation.label;
     var relevant_articles = jsonResponse.relevant_articles;
     //TODO: Pass the score, label and articles to different htmls as required.
+    var logo_bad = false;
+    var logo_good = false;
+    var logo_ok = false;
+
     if (score > 75) {
         chrome.browserAction.setPopup({ tabId: tabID, popup: "popups/popup1.html" });
+        logo_good = true;
     } else if (score > 30) {
         chrome.browserAction.setPopup({ tabId: tabID, popup: "popups/popup2.html" });
+        logo_ok = true;
     } else {
         chrome.browserAction.setPopup({ tabId: tabID, popup: "popups/popup3.html" });
+        logo_bad = true;
     }
 
     changeTextOfElement("score_label", score + "% Reliablity");
     changeTextOfElement("label_label", label);
 
-    toggleDisplayOfElement("logo_bad1", false);
-    toggleDisplayOfElement("logo_bad2", false);
-    toggleDisplayOfElement("logo_ok1", false);
-    toggleDisplayOfElement("logo_ok2", false);
-    // toggleDisplayOfElement("logo_good1", false);
-    // toggleDisplayOfElement("logo_good2", false);
+    toggleDisplayOfElement("logo_bad1", logo_bad);
+    toggleDisplayOfElement("logo_bad2", logo_bad);
+    toggleDisplayOfElement("logo_ok1", logo_ok);
+    toggleDisplayOfElement("logo_ok2", logo_ok);
+    toggleDisplayOfElement("logo_good1", logo_good);
+    toggleDisplayOfElement("logo_good2", logo_good);
     
 };
 
