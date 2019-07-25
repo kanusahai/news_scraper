@@ -48,8 +48,9 @@ function handleResponse(tabID, response) {
     var reliability = evaluation.reliability;
     var score = parseFloat(reliability)*100;
     var label = evaluation.label;
-
+    var characterstics = evaluation.characteristics;
     var relevant_articles = jsonResponse.relevant_articles;
+    
 
     //TODO: Pass the score, label and articles to different htmls as required.
     var logo_bad = false;
@@ -89,6 +90,12 @@ function handleResponse(tabID, response) {
             toggleDisplayOfElement(elemId, false);
         }
     }  
+
+    // Set characterstics
+    // 7 characterstics
+    Object.keys(characterstics).forEach(function(key) {
+        changeTextOfElement(key, key + ": " + characterstics[key] + "%");
+      })
 };
 
 function changeTextOfElement(elemId, text) {
