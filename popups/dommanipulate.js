@@ -1,17 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
 
-'use strict';
-
-let scrape = document.getElementById('scrape');
-
-scrape.onclick = () => {
-
-    console.log("Scrape clicked");
-    calculateTrustScore();
-
-};
 
 function calculateTrustScore() {
     chrome.tabs.query({ 'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT },
@@ -64,29 +51,40 @@ function handleResponse(tabID, response) {
     var relevant_articles = jsonResponse.relevant_articles;
     //TODO: Pass the score, label and articles to different htmls as required.
     if (score > 75) {
-        chrome.browserAction.setPopup({ tabId: tabID, popup: "popups/popup.html" });
+        chrome.browserAction.setPopup({ tabId: tabID, popup: "popups/popup1.html" });
     } else if (score > 30) {
-        chrome.browserAction.setPopup({ tabId: tabID, popup: "popups/popup.html" });
+        chrome.browserAction.setPopup({ tabId: tabID, popup: "popups/popup2.html" });
     } else {
-        chrome.browserAction.setPopup({ tabId: tabID, popup: "popups/popup.html" });
+        chrome.browserAction.setPopup({ tabId: tabID, popup: "popups/popup3.html" });
     }
-    console.log(document);
-    //var score_label_elem = document.getElementById("score_label");
-    //score_label_elem.textContent = score;
+
+    changeTextOfElement("score_label", score + "% Reliablity");
+    changeTextOfElement("label_label", label);
+
+    toggleDisplayOfElement("logo_bad1", false);
+    toggleDisplayOfElement("logo_bad2", false);
+    toggleDisplayOfElement("logo_ok1", false);
+    toggleDisplayOfElement("logo_ok2", false);
+    // toggleDisplayOfElement("logo_good1", false);
+    // toggleDisplayOfElement("logo_good2", false);
+    
 };
 
-function stripHTML(str, space) {
-    var span = document.createElement('span');
-
-    span.innerHTML = str;
-    if (space) {
-        var children = span.querySelectorAll('*');
-        for (var i = 0; i < children.length; i++) {
-            if (children[i].textContent)
-                children[i].textContent += ' ';
-            else
-                children[i].innerText += ' ';
-        }
-    }
-    return [span.textContent || span.innerText].toString().replace(/ +/g, ' ');
+function changeTextOfElement(elemId, text) {
+    var domElement = document.getElementById(elemId);
+    domElement.textContent = text;
 };
+
+
+function toggleDisplayOfElement(elemId, bool){
+
+    var domElement = document.getElementById(elemId);
+    if (bool){
+        domElement.style.display = "block";
+    } else {
+        domElement.style.display = "none";
+    }
+
+}
+
+calculateTrustScore();

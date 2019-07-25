@@ -11,21 +11,21 @@
     <div class="score__container">
         <svg class="negative__icon score__icon" width="34" height="34" viewBox="0 0 34 34" fill="none"
              xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd"
+            <path id="logo_bad1" fill-rule="evenodd" clip-rule="evenodd"
                   d="M29.75 17C29.75 24.0416 24.0416 29.75 17 29.75C9.95837 29.75 4.25 24.0416 4.25 17C4.25 9.95837 9.95837 4.25 17 4.25C24.0416 4.25 29.75 9.95837 29.75 17ZM34 17C34 26.3888 26.3888 34 17 34C7.61116 34 0 26.3888 0 17C0 7.61116 7.61116 0 17 0C26.3888 0 34 7.61116 34 17Z"
                   fill="#A80000"/>
-            <path d="M19 18H15V8H19V18ZM19 26H15V22H19V26Z" fill="#A80000"/>
+            <path id="logo_bad2" d="M19 18H15V8H19V18ZM19 26H15V22H19V26Z" fill="#A80000"/>
 
-            <path d="M17 30.75C24.5939 30.75 30.75 24.5939 30.75 17C30.75 9.40609 24.5939 3.25 17 3.25C9.40609 3.25 3.25 9.40609 3.25 17C3.25 24.5939 9.40609 30.75 17 30.75ZM33 17C33 25.8366 25.8366 33 17 33C8.16344 33 1 25.8366 1 17C1 8.16344 8.16344 1 17 1C25.8366 1 33 8.16344 33 17Z"
+            <path id="logo_good1" d="M17 30.75C24.5939 30.75 30.75 24.5939 30.75 17C30.75 9.40609 24.5939 3.25 17 3.25C9.40609 3.25 3.25 9.40609 3.25 17C3.25 24.5939 9.40609 30.75 17 30.75ZM33 17C33 25.8366 25.8366 33 17 33C8.16344 33 1 25.8366 1 17C1 8.16344 8.16344 1 17 1C25.8366 1 33 8.16344 33 17Z"
                   fill="#0078D4" stroke="#0078D4" stroke-width="2"/>
-            <path fill-rule="evenodd" clip-rule="evenodd"
+            <path id="logo_good2" fill-rule="evenodd" clip-rule="evenodd"
                   d="M17 19.6667C18.4728 19.6667 19.6667 18.4728 19.6667 17C19.6667 15.5272 18.4728 14.3333 17 14.3333C15.5272 14.3333 14.3333 15.5272 14.3333 17C14.3333 18.4728 15.5272 19.6667 17 19.6667ZM17 25C21.4183 25 25 21.4183 25 17C25 12.5817 21.4183 9 17 9C12.5817 9 9 12.5817 9 17C9 21.4183 12.5817 25 17 25Z"
                   fill="#0078D4"/>
 
-            <path fill-rule="evenodd" clip-rule="evenodd"
+            <path id="logo_ok1"fill-rule="evenodd" clip-rule="evenodd"
                   d="M22.0042 12L24 13.852L15.2277 22L10 17.1401L11.9951 15.2887L15.2277 18.282L22.0042 12Z"
                   fill="#107C10"/>
-            <path fill-rule="evenodd" clip-rule="evenodd"
+            <path id="logo_ok2" fill-rule="evenodd" clip-rule="evenodd"
                   d="M29.75 17C29.75 24.0416 24.0416 29.75 17 29.75C9.95837 29.75 4.25 24.0416 4.25 17C4.25 9.95837 9.95837 4.25 17 4.25C24.0416 4.25 29.75 9.95837 29.75 17ZM34 17C34 26.3888 26.3888 34 17 34C7.61116 34 0 26.3888 0 17C0 7.61116 7.61116 0 17 0C26.3888 0 34 7.61116 34 17Z"
                   fill="#107C10"/>
 
@@ -38,7 +38,7 @@
     <!--score container end -->
 
     <div class="dataviz__container">
-        <div class="dataviz__text">This article has a <span class="bolder">10% truthfulness score</span></div>
+        <div class="dataviz__text">This article is classified as: <span id="label_label" class="bolder">N/A</span></div>
         <!--dataviz text end -->
         <div class="dataviz__barchart"></div>
         <!--dataviz barchart end -->
@@ -104,5 +104,7 @@
 <!--   container end  -->
 
 <script src="popup.js"></script>
+<script src="dommanipulate.js"></script>
+
 </body>
 </html>
