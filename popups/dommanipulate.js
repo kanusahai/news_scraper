@@ -48,7 +48,9 @@ function handleResponse(tabID, response) {
     var reliability = evaluation.reliability;
     var score = parseFloat(reliability)*100;
     var label = evaluation.label;
+
     var relevant_articles = jsonResponse.relevant_articles;
+
     //TODO: Pass the score, label and articles to different htmls as required.
     var logo_bad = false;
     var logo_good = false;
@@ -74,7 +76,19 @@ function handleResponse(tabID, response) {
     toggleDisplayOfElement("logo_ok2", logo_ok);
     toggleDisplayOfElement("logo_good1", logo_good);
     toggleDisplayOfElement("logo_good2", logo_good);
-    
+
+    // Set news links
+    var i;
+    for (i=0; i<3; i++)
+    {
+        var elemId = "news" + (i+1).toString();
+        if (relevant_articles[i] != undefined)
+        {
+            changeTextOfElement(elemId, relevant_articles[i].title);
+        } else {
+            toggleDisplayOfElement(elemId, false);
+        }
+    }  
 };
 
 function changeTextOfElement(elemId, text) {
